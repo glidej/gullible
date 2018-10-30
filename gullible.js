@@ -36,9 +36,7 @@ async function scrape(url) {
       });
 }
 
-(async () => {
-    return await x('http://gullible.info/archive.php', '#right', ['a@href']).then(links => links);
-})().then(archive => {
+x('http://gullible.info/archive.php', '#right', ['a@href']).then(archive => {
     return Promise.all(archive.map((url) => scrape(url))).then((pages) => {
         const output = pages.reduce((accumulated, page) => {
             const date = Object.keys(page)[0];
